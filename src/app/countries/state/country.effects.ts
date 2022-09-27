@@ -21,4 +21,16 @@ export class CountryEffects {
         )
       );
   });
+  loadRegions$ = createEffect(() => {
+    return this.actions$
+      .pipe(
+        ofType(CountryActions.loadRegions),
+        mergeMap(() => this.countryService.getRegions()
+          .pipe(
+            map(regions => CountryActions.loadRegionsSuccess({ regions })),
+            catchError(error => of(CountryActions.loadRegionsFailure({ error })))
+          )
+        )
+      );
+  });
 }
