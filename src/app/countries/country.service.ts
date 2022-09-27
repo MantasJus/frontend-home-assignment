@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from '@angular/common/http';
-import { catchError, filter, map, Observable, tap, throwError } from "rxjs";
-import { Country } from "./country";
+import { catchError, map, Observable, tap, throwError } from "rxjs";
+import { Country, CountryAPI } from "./country";
 import { environment } from "src/environments/environment";
 
 @Injectable({
@@ -10,29 +10,22 @@ import { environment } from "src/environments/environment";
 export class CountryService {
 
   constructor(private http: HttpClient) {}
-  
+
   getCountries(): Observable<Country[]> {
-    return this.http.get<any>(environment.API_PATH+'?fields=flags,name,capital,region,languages')
+    return this.http.get<CountryAPI[]>(environment.API_PATH+'?fields=flags,name,capital,region,languages')
       .pipe(
-        map((data => {
-          const countries: Country[] = [];
-          for(let key in data)
-          {
+        map(data => {
+          return data.map(value => {
             const country: Country = {
-              flag: {...data[key]}.flags.svg,
-              countryName: {...data[key]}.name.official,
-              capital: {...data[key]}.capital,
-              region: {...data[key]}.region,
-              languages: []
+              flag: value.flags.svg,
+              countryName: value.name.official,
+              capital: value.capital,
+              region: value.region,
+              languages: Object.keys(value.languages).map(lang => value.languages[lang])
             }
-            for(let lang in {...data[key]}.languages)
-            {
-              country.languages.push({...data[key]}.languages[lang]);
-            }
-            countries.push(country);
-          }
-          return countries;
-        })),
+            return country;
+          })
+        }),
         //tap(data => console.log(JSON.stringify(data))),
         catchError(this.handleError)
       );
