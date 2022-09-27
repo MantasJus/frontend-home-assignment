@@ -32,17 +32,11 @@ export class CountryService {
   }
 
   getRegions(): Observable<string[]> {
-    return this.http.get<any>(environment.API_PATH+'?fields=region')
+    return this.http.get<CountryAPI[]>(environment.API_PATH+'?fields=region')
       .pipe(
         map(data => {
-          const regions: string[] = [];
-          for(let key in data)
-          {
-            regions.push(data[key].region);
-          }
-          return regions.filter((element, index) => {
-            return regions.indexOf(element)===index;
-          });
+          const regions: string[] = data.map(value => value.region);
+          return regions.filter((element, index) => regions.indexOf(element)===index);
         }),
         //tap(data => console.log(JSON.stringify(data))),
         catchError(this.handleError)
