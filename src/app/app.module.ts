@@ -10,6 +10,7 @@ import { countryReducer } from './countries/state/country.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { CountryEffects } from './countries/state/country.effects';
 import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [
     HttpClientModule,
     BrowserModule,
+    ReactiveFormsModule,
     StoreModule.forRoot({'countries': countryReducer}),
     StoreDevtoolsModule.instrument({
       name: 'APM Demo App DevTools',

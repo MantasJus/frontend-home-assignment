@@ -4,6 +4,7 @@ import { Country } from './country';
 import { getFilteredCountries, getRegions, State } from './state/country.reducer';
 import * as CountryActions from './state/country.actions';
 import { Observable, tap } from 'rxjs';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-countries-list',
@@ -14,17 +15,19 @@ export class CountriesListComponent implements OnInit{
   countries$!: Observable<Country[]>;
   regions$!: Observable<string[]>;
 
-  regionOptions: string[] = [];
-  searchQuerry: string = '';
+  searchBarForm!: FormGroup;
   
   constructor(private store: Store<State>) { }
 
-  filterPressed(searchQuery: string, regionSelection: string): void {
-    this.store.dispatch(CountryActions.filterCountries({ search:searchQuery.toLowerCase(), region:regionSelection}));
-    //console.log('search word: '+searchQuery, 'region selected: '+regionSelection);
+  filterPressed(): void {
+    this.store.dispatch(CountryActions.filterCountries({ search:this.searchBarForm.value.searchQuery.toLowerCase(), region:this.searchBarForm.value.regionSelection}));
   }
 
   ngOnInit(): void {
+    this.searchBarForm = new FormGroup({
+      searchQuery: new FormControl(''),
+      regionSelection: new FormControl('')
+    });
     this.countries$ = this.store.select(getFilteredCountries);
     this.regions$ = this.store.select(getRegions);
     this.store.dispatch(CountryActions.loadCountries());
