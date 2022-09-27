@@ -2,17 +2,17 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from '@angular/common/http';
 import { catchError, filter, map, Observable, tap, throwError } from "rxjs";
 import { Country } from "./country";
+import { environment } from "src/environments/environment";
 
 @Injectable({
     providedIn: 'root'
   })
 export class CountryService {
-  private API_PATH = 'https://restcountries.com/v3.1/all';
 
   constructor(private http: HttpClient) {}
   
   getCountries(): Observable<Country[]> {
-    return this.http.get<any>(this.API_PATH+'?fields=flags,name,capital,region,languages')
+    return this.http.get<any>(environment.API_PATH+'?fields=flags,name,capital,region,languages')
       .pipe(
         map((data => {
           const countries: Country[] = [];
@@ -39,7 +39,7 @@ export class CountryService {
   }
 
   getRegions(): Observable<string[]> {
-    return this.http.get<any>(this.API_PATH+'?fields=region')
+    return this.http.get<any>(environment.API_PATH+'?fields=region')
       .pipe(
         map(data => {
           const regions: string[] = [];

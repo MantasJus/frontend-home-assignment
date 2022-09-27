@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  API_PATH: 'https://restcountries.com/v3.1/all'
 };
