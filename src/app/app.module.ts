@@ -11,11 +11,15 @@ import { EffectsModule } from '@ngrx/effects';
 import { CountryEffects } from './countries/state/country.effects';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HighlightPipe } from './pipes/highlight.pipe';
+import { DisplayArrayPipe } from './pipes/display-array.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CountriesListComponent
+    CountriesListComponent,
+    HighlightPipe,
+    DisplayArrayPipe
   ],
   imports: [
     HttpClientModule,
