@@ -2,7 +2,7 @@ import { createAction, props } from '@ngrx/store';
 import { Country } from '../country';
 
 export const loadCountries = createAction(
-    '[Country] Load'
+    '[Country] Load Countries'
 );
 
 export const loadCountriesSuccess = createAction(
