@@ -57,26 +57,26 @@ $defualt-font-family: 'Arial';
     }
 }
 
-.contries-list-container{
-    table{
-        font-family: $defualt-font-family;
-        border-collapse: collapse;
+.countries-list-container{
 
-        tr:first-child{
+        .countries-header{
             color:$gray-font;
             font-size: 8pt;
+
+            div{
+                font-weight: 300;
+            }
         }
 
-        th {
-            font-weight: 300;
-        }
-
-        tr:not(:first-child){
+        .countries-row{
+            display: grid;
+            grid-template-columns: 80px 300px 200px 150px auto;
+            align-items: center;
+            
             border-bottom: 1px solid $gray-accent-color;
         }
         
         .flag-img{
             height:20px;
         }
-    }
 }

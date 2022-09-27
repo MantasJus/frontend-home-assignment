@@ -13,9 +13,24 @@
     </select>
 </form>
 
-<div class="contries-list-container"
+<div class="countries-list-container"
     *ngIf="countries$ | async as countries">
-    <table>
+    <div class="countries-header countries-row">
+        <div>FLAG</div>
+        <div>COUNTRY NAME</div>
+        <div>CAPITAL</div>
+        <div>REGION</div>
+        <div>LANGUAGES</div>
+    </div>
+    <div class="countries-row"
+        *ngFor="let country of countries">
+        <div><img class="flag-img" src={{country.flag}}></div>
+        <div [innerHTML]="country.countryName | highlight:searchBarForm.value.searchQuery"></div>
+        <div [innerHTML]="country.capital | arrayToString | highlight:searchBarForm.value.searchQuery"></div>
+        <div [innerHTML]="country.region"></div>
+        <div [innerHTML]="country.languages | arrayToString | highlight:searchBarForm.value.searchQuery"></div>
+    </div>
+    <!--table>
         <tr>
             <th>FLAG</th>
             <th>COUNTRY NAME</th>
@@ -31,5 +46,5 @@
             <td>{{country.region}}</td>
             <td innerHTML="{{country.languages | arrayToString | highlight:searchBarForm.value.searchQuery}}"></td>
         </tr>
-    </table>
+    </table-->
 </div>
