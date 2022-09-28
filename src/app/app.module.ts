@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 import { AppComponent } from './app.component';
 import { CountriesListComponent } from './countries/countries-list.component';
@@ -13,13 +14,16 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HighlightPipe } from './pipes/highlight.pipe';
 import { DisplayArrayPipe } from './pipes/display-array.pipe';
+import { PaginatorComponent } from './paginator/paginator.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
     AppComponent,
     CountriesListComponent,
     HighlightPipe,
-    DisplayArrayPipe
+    DisplayArrayPipe,
+    PaginatorComponent
   ],
   imports: [
     HttpClientModule,
@@ -31,7 +35,9 @@ import { DisplayArrayPipe } from './pipes/display-array.pipe';
       maxAge: 25,
       logOnly: environment.production
     }),
-    EffectsModule.forRoot([CountryEffects])
+    EffectsModule.forRoot([CountryEffects]),
+    MatPaginatorModule,
+    BrowserAnimationsModule
   ],
   bootstrap: [AppComponent]
 })
