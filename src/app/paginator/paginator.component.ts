@@ -1,10 +1,10 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-paginator',
   template: `
-  <mat-paginator [length]="200" [pageSize]="itemsPerPage" [pageSizeOptions]="pageSizeOptions"
+  <mat-paginator [length]="itemsLength" [pageSize]="itemsPerPage" [pageSizeOptions]="pageSizeOptions"
     (page)="handlePageEvent($event)" aria-label="Select page">
   </mat-paginator>
   `
@@ -17,6 +17,7 @@ export class PaginatorComponent {
   pageIndex: number = 0;
   itemsPerPage = 25;
   pageSize?: number;
+  @Input() itemsLength = 0;
 
   @Output() range = new EventEmitter<number[]>();
 

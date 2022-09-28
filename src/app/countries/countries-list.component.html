@@ -29,5 +29,5 @@
         <div [innerHTML]="country.region"></div>
         <div [innerHTML]="country.languages | arrayToString | highlight:searchBarForm.value.searchQuery"></div>
     </div>
-    <app-paginator (range)="setRange($event)"></app-paginator>
+    <app-paginator (range)="setRange($event)" [itemsLength]="countries.length"></app-paginator>
 </div>
