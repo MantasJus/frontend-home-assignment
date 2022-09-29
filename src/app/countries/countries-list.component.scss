@@ -2,34 +2,46 @@ $gray-accent-color: #DDD;
 $gray-font: #999;
 $defualt-font-family: 'Arial';
 
+@mixin countries-row-shared{
+    display: grid;
+    grid-template-columns: 130px 250px 200px 130px auto;
+    align-items: center;
+    padding-left: 30px;
+
+    > div {
+        padding-left:10px;
+        padding-right:10px;
+    }
+}
+
 .countries-list-container{
 
-        .countries-header{
-            color:$gray-font;
-            font-size: 8pt;
+    .countries-header{
+        @include countries-row-shared();
+        color:$gray-font;
+        font-size: 8pt;
+        height: 50px;
 
-            div{
-                font-weight: 300;
-            }
-            .countries-header-sortable{
-                display: flex;
-                align-items: center;
-            }
+        div{
+            font-weight: 300;
         }
-
-        .countries-row{
-            display: grid;
-            grid-template-columns: 80px 300px 200px 150px auto;
+        .countries-header-sortable{
+            display: flex;
             align-items: center;
-            padding-left: 10px;
-            border-bottom: 1px solid $gray-accent-color;
-            height: 40px;
-            font-size: 10pt;
         }
-        
-        .flag-img{
-            height:20px;
-        }
+    }
+
+    .countries-row{
+        @include countries-row-shared();
+        border-bottom: 1px solid $gray-accent-color;
+        height: 40px;
+        font-size: 10pt;
+    }
+    
+    .flag-img{
+        height:20px;
+        border: 1px solid $gray-accent-color;
+    }
 }
 
 .sorting-arrow-down{

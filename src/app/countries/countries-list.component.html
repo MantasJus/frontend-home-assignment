@@ -1,7 +1,7 @@
 <app-filter-bar (filterQuerys)="filterCountries($event)" [regions]="regions$ | async"></app-filter-bar>
 <div class="countries-list-container"
     *ngIf="countries$ | async as countries">
-    <div class="countries-header countries-row">
+    <div class="countries-header">
         <div>FLAG</div>
         <div class="countries-header-sortable">
             COUNTRY NAME 
