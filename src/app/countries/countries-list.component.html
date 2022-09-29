@@ -1,17 +1,4 @@
-<form [formGroup]="searchBarForm" class="search-bar">
-    <div class="search-container" (click)="searchInput.focus()">
-        <svg width="18" height="18" viewBox="0 0 18 18">
-            <path d="m18 16.5-5.14-5.18h-.35a7 7 0 1 0-1.19 1.19v.35L16.5 18l1.5-1.5ZM12 7A5 5 0 1 1 2 7a5 5 0 0 1 10 0Z">
-            </path>
-        </svg>
-        <input #searchInput formControlName="searchQuery" type="text" placeholder="Name, Capital, Language">
-    </div>
-    <select formControlName="regionSelection">
-        <option value="" selected>All Regions</option>
-        <option *ngFor="let region of regions$ | async">{{region}}</option>
-    </select>
-</form>
-
+<app-filter-bar (filterQuerys)="filterCountries($event)" [regions]="regions$ | async"></app-filter-bar>
 <div class="countries-list-container"
     *ngIf="countries$ | async as countries">
     <div class="countries-header countries-row">
@@ -24,10 +11,10 @@
     <div class="countries-row"
         *ngFor="let country of countries | slice: lowerRange:higherRange">
         <div><img class="flag-img" src={{country.flag}}></div>
-        <div [innerHTML]="country.countryName | highlight:searchBarForm.value.searchQuery"></div>
-        <div [innerHTML]="country.capital | arrayToString | highlight:searchBarForm.value.searchQuery"></div>
+        <div [innerHTML]="country.countryName | highlight:searchQuery"></div>
+        <div [innerHTML]="country.capital | arrayToString | highlight:searchQuery"></div>
         <div [innerHTML]="country.region"></div>
-        <div [innerHTML]="country.languages | arrayToString | highlight:searchBarForm.value.searchQuery"></div>
+        <div [innerHTML]="country.languages | arrayToString | highlight:searchQuery"></div>
     </div>
     <app-paginator (range)="setRange($event)" [itemsLength]="countries.length"></app-paginator>
 </div>
