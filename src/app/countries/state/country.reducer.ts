@@ -38,7 +38,7 @@ export const getError = createSelector(
     state => state.error
 );
 
-export const getFilteredCountries = createSelector(
+export const getCountriesToDisplay = createSelector(
     getCountryFeatureState,
     state => state.displayedCountries
 );
@@ -92,6 +92,37 @@ export const countryReducer = createReducer<CountryState>(
             countries: state.countries,
             displayedCountries: filteredCountries,
             error: ''
+        };
+    }),
+    on(CountryActions.sortCountries, (state, action): CountryState => {
+        var sortedCountries: Country[] = [...state.displayedCountries];
+        switch(action.sortField) {
+            case 'Name':
+                action.ascending?
+                    sortedCountries.sort(
+                        (a, b) => b.countryName.localeCompare(a.countryName)) :
+                    sortedCountries.sort(
+                        (a, b) => a.countryName.localeCompare(b.countryName))
+                break;
+            case 'Capital':
+                action.ascending?
+                    sortedCountries.sort(
+                        (a, b) => b.capital.toString().localeCompare(a.capital.toString())) :
+                    sortedCountries.sort(
+                        (a, b) => a.capital.toString().localeCompare(b.capital.toString()))
+                break;
+            case 'Region':
+                action.ascending?
+                    sortedCountries.sort(
+                        (a, b) => b.region.localeCompare(a.region)) :
+                    sortedCountries.sort(
+                        (a, b) => a.region.localeCompare(b.region))
+                break;
+        }
+        console.log(sortedCountries, state.displayedCountries);
+        return {
+            ...state,
+            displayedCountries: sortedCountries
         };
     })
 );

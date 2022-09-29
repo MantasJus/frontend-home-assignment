@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Country } from './country';
-import { getFilteredCountries, getRegions, State } from './state/country.reducer';
+import { getCountriesToDisplay, getRegions, State } from './state/country.reducer';
 import * as CountryActions from './state/country.actions';
 import { Observable } from 'rxjs';
 
@@ -24,7 +24,7 @@ export class CountriesListComponent implements OnInit {
   constructor(private store: Store<State>) { }
 
   ngOnInit(): void {
-    this.countries$ = this.store.select(getFilteredCountries);
+    this.countries$ = this.store.select(getCountriesToDisplay);
     this.regions$ = this.store.select(getRegions);
     this.store.dispatch(CountryActions.loadCountries());
     this.store.dispatch(CountryActions.loadRegions());
@@ -41,5 +41,9 @@ export class CountriesListComponent implements OnInit {
     }));
     this.searchQuery = $event.searchQuery;
     this.regionSelect = $event.regionSelect;
+  }
+
+  sortCountries(field: string, asc: boolean): void {
+    this.store.dispatch(CountryActions.sortCountries({sortField: field, ascending:asc}));
   }
 }

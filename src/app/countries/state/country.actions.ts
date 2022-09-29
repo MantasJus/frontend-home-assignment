@@ -20,6 +20,11 @@ export const filterCountries = createAction(
     props<{ search: string , region: string}>()
 );
 
+export const sortCountries = createAction(
+    '[Country] Sort Countries',
+    props<{ sortField: string , ascending: boolean }>()
+);
+
 export const loadRegions = createAction(
     '[Country] Load Regions'
 );

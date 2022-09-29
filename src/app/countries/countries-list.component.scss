@@ -1,4 +1,4 @@
-$gray-accent-color: #DDDDDD;
+$gray-accent-color: #DDD;
 $gray-font: #999;
 $defualt-font-family: 'Arial';
 
@@ -11,17 +11,45 @@ $defualt-font-family: 'Arial';
             div{
                 font-weight: 300;
             }
+            .countries-header-sortable{
+                display: flex;
+                align-items: center;
+            }
         }
 
         .countries-row{
             display: grid;
             grid-template-columns: 80px 300px 200px 150px auto;
             align-items: center;
-            
+            padding-left: 10px;
             border-bottom: 1px solid $gray-accent-color;
+            height: 40px;
+            font-size: 10pt;
         }
         
         .flag-img{
             height:20px;
         }
+}
+
+.sorting-arrow-down{
+    width: 0;
+    height: 0;
+    border: solid 5px transparent;
+    background: transparent;
+    border-top: solid 7px $gray-accent-color;
+    border-bottom-width: 0;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+.sorting-arrow-up {
+    width: 0;
+    height: 0;
+    border: solid 5px transparent;
+    background: transparent;
+    border-bottom: solid 7px $gray-accent-color;
+    border-top-width: 0;
+    margin-left: 5px;
+    cursor: pointer;
 }

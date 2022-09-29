@@ -3,9 +3,21 @@
     *ngIf="countries$ | async as countries">
     <div class="countries-header countries-row">
         <div>FLAG</div>
-        <div>COUNTRY NAME</div>
-        <div>CAPITAL</div>
-        <div>REGION</div>
+        <div class="countries-header-sortable">
+            COUNTRY NAME 
+            <div class="sorting-arrow-up" (click)="sortCountries('Name', false)"></div>
+            <div class="sorting-arrow-down" (click)="sortCountries('Name', true)"></div>
+        </div>
+        <div class="countries-header-sortable">
+            CAPITAL
+            <div class="sorting-arrow-up" (click)="sortCountries('Capital', false)"></div>
+            <div class="sorting-arrow-down" (click)="sortCountries('Capital', true)"></div>
+        </div>
+        <div class="countries-header-sortable">
+            REGION
+            <div class="sorting-arrow-up" (click)="sortCountries('Region', false)"></div>
+            <div class="sorting-arrow-down" (click)="sortCountries('Region', true)"></div>
+        </div>
         <div>LANGUAGES</div>
     </div>
     <div class="countries-row"
