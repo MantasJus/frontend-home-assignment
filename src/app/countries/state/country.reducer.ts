@@ -81,12 +81,14 @@ export const countryReducer = createReducer<CountryState>(
         };
     }),
     on(CountryActions.filterCountries, (state, action): CountryState => {
-        //console.log(action); // later on should come query and region
         var filteredCountries: Country[] = action.region.length == 0 ? state.countries : state.countries.filter(country => country.region === action.region);
-        filteredCountries = action.search.length == 0 ? filteredCountries : filteredCountries.filter(country => country.countryName.toLowerCase().includes(action.search)
-                                                                                                            || country.capital.map(capital => capital.toLowerCase()).some(capital => capital.includes(action.search))
-                                                                                                            || country.languages.map(language => language.toLowerCase()).some(language => language.includes(action.search)));
-        //console.log('result: '+filteredCountries);
+        filteredCountries = action.search.length == 0 ? filteredCountries : filteredCountries.filter(country => {
+            var langArray: string[];
+            const nameCheck = country.name.official.toLowerCase().includes(action.search)
+            const langCheck: boolean = country.languages===undefined? false : Object.keys(country.languages).map(lang => country.languages[lang]).map(language => language.toLowerCase()).some(language => language.includes(action.search))
+            const capitalCheck:boolean = country.capital==undefined? false : country.capital.map(capital => capital.toLowerCase()).some(capital => capital.includes(action.search))
+            return nameCheck || capitalCheck || langCheck
+        })
         return {
             ...state,
             countries: state.countries,
@@ -100,9 +102,9 @@ export const countryReducer = createReducer<CountryState>(
             case 'Name':
                 action.ascending?
                     sortedCountries.sort(
-                        (a, b) => b.countryName.localeCompare(a.countryName)) :
+                        (a, b) => b.name.official.localeCompare(a.name.official)) :
                     sortedCountries.sort(
-                        (a, b) => a.countryName.localeCompare(b.countryName))
+                        (a, b) => a.name.official.localeCompare(b.name.official))
                 break;
             case 'Capital':
                 action.ascending?
@@ -119,7 +121,6 @@ export const countryReducer = createReducer<CountryState>(
                         (a, b) => a.region.localeCompare(b.region))
                 break;
         }
-        console.log(sortedCountries, state.displayedCountries);
         return {
             ...state,
             displayedCountries: sortedCountries

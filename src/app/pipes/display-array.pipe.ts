@@ -6,7 +6,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class DisplayArrayPipe implements PipeTransform {
 
   transform(value: string[]): string {
-    if(value.length <=1) return value[0];
+    if(value == undefined || value.length <=1) return '';
     return value.reduce((sum, value) => sum + ', ' + value);
   }
 

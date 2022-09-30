@@ -17,6 +17,7 @@ import { DisplayArrayPipe } from './pipes/display-array.pipe';
 import { PaginatorComponent } from './paginator/paginator.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FilterBarComponent } from './countries/filter-bar.component';
+import { DisplayObjectPipe } from './pipes/display-object.pipe';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { FilterBarComponent } from './countries/filter-bar.component';
     HighlightPipe,
     DisplayArrayPipe,
     PaginatorComponent,
-    FilterBarComponent
+    FilterBarComponent,
+    DisplayObjectPipe
   ],
   imports: [
     HttpClientModule,

@@ -22,11 +22,11 @@
     </div>
     <div class="countries-row"
         *ngFor="let country of countries | slice: lowerRange:higherRange">
-        <div><img class="flag-img" src={{country.flag}}></div>
-        <div [innerHTML]="country.countryName | highlight:searchQuery"></div>
+        <div><img class="flag-img" src={{country.flags.svg}}></div>
+        <div [innerHTML]="country.name.official| highlight:searchQuery"></div>
         <div [innerHTML]="country.capital | arrayToString | highlight:searchQuery"></div>
         <div [innerHTML]="country.region"></div>
-        <div [innerHTML]="country.languages | arrayToString | highlight:searchQuery"></div>
+        <div [innerHTML]="country.languages | objectToString | highlight:searchQuery"></div>
     </div>
     <app-paginator (range)="setRange($event)" [itemsLength]="countries.length"></app-paginator>
 </div>
