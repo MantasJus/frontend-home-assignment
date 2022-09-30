@@ -45,7 +45,7 @@ $defualt-font-family: 'Arial';
     }
 }
 
-.sorting-arrow-down{
+.sorting-arrow-down {
     width: 0;
     height: 0;
     border: solid 5px transparent;
@@ -56,6 +56,7 @@ $defualt-font-family: 'Arial';
     cursor: pointer;
 }
 
+
 .sorting-arrow-up {
     width: 0;
     height: 0;
@@ -65,4 +66,11 @@ $defualt-font-family: 'Arial';
     border-top-width: 0;
     margin-left: 5px;
     cursor: pointer;
+}
+
+.sorting-arrow-up.active-sort-arrow {
+    border-bottom: solid 7px black;
+}
+.sorting-arrow-down.active-sort-arrow {
+    border-top: solid 7px black;
 }

@@ -5,18 +5,30 @@
         <div>FLAG</div>
         <div class="countries-header-sortable">
             COUNTRY NAME 
-            <div class="sorting-arrow-up" (click)="sortCountries('Name', false)"></div>
-            <div class="sorting-arrow-down" (click)="sortCountries('Name', true)"></div>
+            <div class="sorting-arrow-up 
+                {{(sortingInfo | async)!.field=='Name'&&!(sortingInfo | async)!.ascending?'active-sort-arrow':''}}" 
+                (click)="sortCountries('Name', false)"></div>
+            <div class="sorting-arrow-down
+                {{(sortingInfo | async)!.field=='Name'&&(sortingInfo | async)!.ascending?'active-sort-arrow':''}}"
+                (click)="sortCountries('Name', true)"></div>
         </div>
         <div class="countries-header-sortable">
             CAPITAL
-            <div class="sorting-arrow-up" (click)="sortCountries('Capital', false)"></div>
-            <div class="sorting-arrow-down" (click)="sortCountries('Capital', true)"></div>
+            <div class="sorting-arrow-up
+            {{(sortingInfo | async)!.field=='Capital'&&!(sortingInfo | async)!.ascending?'active-sort-arrow':''}}"
+            (click)="sortCountries('Capital', false)"></div>
+            <div class="sorting-arrow-down
+            {{(sortingInfo | async)!.field=='Capital'&&(sortingInfo | async)!.ascending?'active-sort-arrow':''}}"
+            (click)="sortCountries('Capital', true)"></div>
         </div>
         <div class="countries-header-sortable">
             REGION
-            <div class="sorting-arrow-up" (click)="sortCountries('Region', false)"></div>
-            <div class="sorting-arrow-down" (click)="sortCountries('Region', true)"></div>
+            <div class="sorting-arrow-up
+            {{(sortingInfo | async)!.field=='Region'&&!(sortingInfo | async)!.ascending?'active-sort-arrow':''}}"
+            (click)="sortCountries('Region', false)"></div>
+            <div class="sorting-arrow-down
+            {{(sortingInfo | async)!.field=='Region'&&(sortingInfo | async)!.ascending?'active-sort-arrow':''}}"
+            (click)="sortCountries('Region', true)"></div>
         </div>
         <div>LANGUAGES</div>
     </div>

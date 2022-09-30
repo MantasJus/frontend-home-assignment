@@ -14,6 +14,10 @@ export interface CountryState {
     error: string;
     searchInput: string;
     filterRegion: string;
+    sorting: {
+        field: string;
+        ascending: boolean;
+    };
 }
 
 const initialState: CountryState = {
@@ -22,7 +26,8 @@ const initialState: CountryState = {
     regions: [],
     error: '',
     searchInput: '',
-    filterRegion: ''
+    filterRegion: '',
+    sorting: {field: '', ascending: true}
 };
 
 // Selector functions
@@ -47,6 +52,11 @@ export const getRegions = createSelector(
     getCountryFeatureState,
     state => state.regions
 );
+
+export const getSortingInfo = createSelector(
+    getCountryFeatureState,
+    state => state.sorting
+)
 
 export const countryReducer = createReducer<CountryState>(
     initialState,
@@ -123,7 +133,8 @@ export const countryReducer = createReducer<CountryState>(
         }
         return {
             ...state,
-            displayedCountries: sortedCountries
+            displayedCountries: sortedCountries,
+            sorting: {field: action.sortField, ascending: action.ascending}
         };
     })
 );

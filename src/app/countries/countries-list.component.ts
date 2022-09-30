@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Country } from './country';
-import { getCountriesToDisplay, getRegions, State } from './state/country.reducer';
+import { getCountriesToDisplay, getRegions, getSortingInfo, State } from './state/country.reducer';
 import * as CountryActions from './state/country.actions';
 import { Observable } from 'rxjs';
 
@@ -13,6 +13,7 @@ export class CountriesListComponent implements OnInit {
 
   countries$!: Observable<Country[]>;
   regions$!: Observable<string[]>;
+  sortingInfo!: Observable<{field: string, ascending: boolean}>;
 
   lowerRange: number = 0;
   higherRange: number = 25;
@@ -25,6 +26,7 @@ export class CountriesListComponent implements OnInit {
   ngOnInit(): void {
     this.countries$ = this.store.select(getCountriesToDisplay);
     this.regions$ = this.store.select(getRegions);
+    this.sortingInfo = this.store.select(getSortingInfo);
     this.store.dispatch(CountryActions.loadCountries());
     this.store.dispatch(CountryActions.loadRegions());
   }
