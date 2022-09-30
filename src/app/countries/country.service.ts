@@ -14,6 +14,12 @@ export class CountryService {
   getCountries(): Observable<Country[]> {
     return this.http.get<Country[]>(environment.API_PATH)
       .pipe(
+        map(data => {
+          return data.map(value => {
+            value.capital = value.capital!=undefined? value.capital : [];
+            return value;
+          })
+        }),
         //tap(data => console.log(JSON.stringify(data))),
         catchError(this.handleError)
       );
