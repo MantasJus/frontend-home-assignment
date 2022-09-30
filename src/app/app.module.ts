@@ -18,6 +18,8 @@ import { PaginatorComponent } from './paginator/paginator.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FilterBarComponent } from './countries/filter-bar.component';
 import { DisplayObjectPipe } from './pipes/display-object.pipe';
+import { RouterModule } from '@angular/router';
+import { CountryDetailComponent } from './countries/country-detail.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,8 @@ import { DisplayObjectPipe } from './pipes/display-object.pipe';
     DisplayArrayPipe,
     PaginatorComponent,
     FilterBarComponent,
-    DisplayObjectPipe
+    DisplayObjectPipe,
+    CountryDetailComponent
   ],
   imports: [
     HttpClientModule,
@@ -41,7 +44,13 @@ import { DisplayObjectPipe } from './pipes/display-object.pipe';
     }),
     EffectsModule.forRoot([CountryEffects]),
     MatPaginatorModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    RouterModule.forRoot([
+      { path: 'countries', component: CountriesListComponent},
+      { path: 'countries/:abr', component: CountryDetailComponent},
+      { path: '', redirectTo: 'countries', pathMatch: 'full'},
+      { path: '**', redirectTo: 'countries', pathMatch: 'full' }
+    ])
   ],
   bootstrap: [AppComponent]
 })

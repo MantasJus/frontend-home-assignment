@@ -21,7 +21,8 @@
         <div>LANGUAGES</div>
     </div>
     <div class="countries-row"
-        *ngFor="let country of countries | slice: lowerRange:higherRange">
+        *ngFor="let country of countries | slice: lowerRange:higherRange"
+        [routerLink]="['/countries', country.cca3]">
         <div><img class="flag-img" src={{country.flags.svg}}></div>
         <div [innerHTML]="country.name.official| highlight:searchQuery"></div>
         <div [innerHTML]="country.capital | arrayToString | highlight:searchQuery"></div>
