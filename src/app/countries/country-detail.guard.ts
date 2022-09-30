@@ -13,7 +13,7 @@ export class CountryDetailGuard implements CanActivate {
   {
     const countId = route.paramMap.get('abr');
     if(typeof(countId)!='string' || countId.length!=3) {
-      this.router.navigate(['/countries']);
+      this.router.navigate(['/error']);
       return false;
     }
 

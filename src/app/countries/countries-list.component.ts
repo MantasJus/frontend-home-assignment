@@ -6,7 +6,6 @@ import * as CountryActions from './state/country.actions';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-countries-list',
   templateUrl: './countries-list.component.html',
   styleUrls: ['./countries-list.component.scss']
 })

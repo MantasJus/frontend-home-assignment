@@ -20,6 +20,8 @@ import { FilterBarComponent } from './countries/filter-bar.component';
 import { DisplayObjectPipe } from './pipes/display-object.pipe';
 import { RouterModule } from '@angular/router';
 import { CountryDetailComponent } from './countries/country-detail.component';
+import { CountryDetailGuard } from './countries/country-detail.guard';
+import { ErrorPageComponent } from './error-page/error-page.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,8 @@ import { CountryDetailComponent } from './countries/country-detail.component';
     PaginatorComponent,
     FilterBarComponent,
     DisplayObjectPipe,
-    CountryDetailComponent
+    CountryDetailComponent,
+    ErrorPageComponent
   ],
   imports: [
     HttpClientModule,
@@ -47,9 +50,10 @@ import { CountryDetailComponent } from './countries/country-detail.component';
     BrowserAnimationsModule,
     RouterModule.forRoot([
       { path: 'countries', component: CountriesListComponent},
-      { path: 'countries/:abr', component: CountryDetailComponent},
-      { path: '', redirectTo: 'countries', pathMatch: 'full'},
-      { path: '**', redirectTo: 'countries', pathMatch: 'full' }
+      { path: 'countries/:abr', canActivate: [CountryDetailGuard], component: CountryDetailComponent},
+      { path: '', redirectTo: 'countries', pathMatch: 'full' },
+      { path: 'error', component:ErrorPageComponent },
+      { path: '**', redirectTo: 'error', pathMatch: 'full' }
     ])
   ],
   bootstrap: [AppComponent]
