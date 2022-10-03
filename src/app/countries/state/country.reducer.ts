@@ -101,52 +101,55 @@ export const countryReducer = createReducer<CountryState>(
         };
     }),
     on(CountryActions.filterCountries, (state, action): CountryState => {
-        var filteredCountries: Country[] = action.region.length == 0 ? state.countries : state.countries.filter(country => country.region === action.region);
-        filteredCountries = action.search.length == 0 ? filteredCountries : filteredCountries.filter(country => {
-            var langArray: string[];
-            const nameCheck = country.name.official.toLowerCase().includes(action.search)
-            const langCheck: boolean = country.languages===undefined? false : Object.keys(country.languages).map(lang => country.languages[lang]).map(language => language.toLowerCase()).some(language => language.includes(action.search))
-            const capitalCheck:boolean = country.capital==undefined? false : country.capital.map(capital => capital.toLowerCase()).some(capital => capital.includes(action.search))
-            return nameCheck || capitalCheck || langCheck
-        })
         return {
             ...state,
             countries: state.countries,
-            displayedCountries: filteredCountries,
             searchInput: action.search,
             filterRegion: action.region,
             error: ''
         };
     }),
     on(CountryActions.sortCountries, (state, action): CountryState => {
-        var sortedCountries: Country[] = [...state.displayedCountries];
-        switch(action.sortField) {
+        return {
+            ...state,
+            sorting: {field: action.sortField, ascending: action.ascending}
+        };
+    }),
+    on(CountryActions.sortCountries, CountryActions.filterCountries, (state, action): CountryState => {
+        var displayingCountries: Country[] = [...state.countries];
+        displayingCountries = state.filterRegion.length == 0 ? displayingCountries : state.countries.filter(country => country.region === state.filterRegion);
+        displayingCountries = state.searchInput.length == 0 ? displayingCountries : displayingCountries.filter(country => {
+            const nameCheck = country.name.official.toLowerCase().includes(state.searchInput)
+            const langCheck: boolean = country.languages===undefined? false : Object.keys(country.languages).map(lang => country.languages[lang]).map(language => language.toLowerCase()).some(language => language.includes(state.searchInput))
+            const capitalCheck:boolean = country.capital==undefined? false : country.capital.map(capital => capital.toLowerCase()).some(capital => capital.includes(state.searchInput))
+            return nameCheck || capitalCheck || langCheck
+        });
+        switch(state.sorting.field) {
             case 'Name':
-                action.ascending?
-                    sortedCountries.sort(
+                state.sorting.ascending?
+                    displayingCountries.sort(
                         (a, b) => b.name.official.localeCompare(a.name.official)) :
-                    sortedCountries.sort(
+                    displayingCountries.sort(
                         (a, b) => a.name.official.localeCompare(b.name.official))
                 break;
             case 'Capital':
-                action.ascending?
-                    sortedCountries.sort(
+                state.sorting.ascending?
+                    displayingCountries.sort(
                         (a, b) => b.capital.toString().localeCompare(a.capital.toString())) :
-                    sortedCountries.sort(
+                    displayingCountries.sort(
                         (a, b) => a.capital.toString().localeCompare(b.capital.toString()))
                 break;
             case 'Region':
-                action.ascending?
-                    sortedCountries.sort(
+                state.sorting.ascending?
+                    displayingCountries.sort(
                         (a, b) => b.region.localeCompare(a.region)) :
-                    sortedCountries.sort(
+                    displayingCountries.sort(
                         (a, b) => a.region.localeCompare(b.region))
                 break;
         }
         return {
             ...state,
-            displayedCountries: sortedCountries,
-            sorting: {field: action.sortField, ascending: action.ascending}
+            displayedCountries: displayingCountries,
         };
-    })
+    }),
 );
