@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { Country } from './country';
 import { getCountriesToDisplay, getRegions, getSearchQuery, getSelectedRegion, getSortingInfo, State } from './state/country.reducer';
 import * as CountryActions from './state/country.actions';
-import { Observable } from 'rxjs';
+import { Observable, take } from 'rxjs';
 
 @Component({
   templateUrl: './countries-list.component.html',
@@ -42,6 +42,15 @@ export class CountriesListComponent implements OnInit {
   }
 
   sortCountries(field: string, asc: boolean): void {
-    this.store.dispatch(CountryActions.sortCountries({sortField: field, ascending:asc}));
+    var fieldToCheck: string = '';
+    var ascToCheck: boolean = true;;
+    this.sortingInfo$.pipe(take(1)).subscribe(
+      ({field, ascending}) => {
+        fieldToCheck = field;
+        ascToCheck = ascending;
+    });
+    fieldToCheck === field && ascToCheck === asc?
+      this.store.dispatch(CountryActions.sortCountries({sortField: '', ascending:true})) :
+      this.store.dispatch(CountryActions.sortCountries({sortField: field, ascending:asc}));
   }
 }
