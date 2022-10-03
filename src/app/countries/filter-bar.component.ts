@@ -14,8 +14,8 @@ import { Subscription } from 'rxjs';
         <input #searchInput formControlName="searchQuery" type="text" placeholder="Name, Capital, Language">
     </div>
     <select formControlName="regionSelection">
-        <option value="" selected>All Regions</option>
-        <option *ngFor="let region of regions">{{region}}</option>
+        <option value="" [selected]="selectedRegion==''">All Regions</option>
+        <option *ngFor="let region of regions" [selected]="selectedRegion==region">{{region}}</option>
     </select>
   </form>
   `,
@@ -26,14 +26,16 @@ export class FilterBarComponent implements OnInit, OnDestroy {
   inputsSub$!: Subscription;
 
   @Input() regions: string[] | null= null;
+  @Input() selectedRegion: string = '';
+  @Input() searchQuery: string = '';
   @Output() filterQuerys = new EventEmitter<{searchQuery: string, regionSelect: string}>();
 
   constructor() { }
 
   ngOnInit(): void {
     this.searchBarForm = new FormGroup({
-      searchQuery: new FormControl(''),
-      regionSelection: new FormControl('')
+      searchQuery: new FormControl(this.searchQuery),
+      regionSelection: new FormControl(this.selectedRegion)
     });
     this.inputsSub$ = this.searchBarForm.valueChanges.subscribe(() =>
       this.filterQuerys.emit({
