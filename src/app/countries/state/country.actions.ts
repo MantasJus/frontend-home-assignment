@@ -1,6 +1,10 @@
 import { createAction, props } from '@ngrx/store';
 import { Country } from '../country';
 
+export const initialLoad = createAction(
+    '[Country] Initial Load'
+);
+
 export const loadCountries = createAction(
     '[Country] Load Countries'
 );

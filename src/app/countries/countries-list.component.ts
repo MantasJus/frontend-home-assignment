@@ -27,8 +27,6 @@ export class CountriesListComponent implements OnInit {
     this.countries$ = this.store.select(getCountriesToDisplay);
     this.regions$ = this.store.select(getRegions);
     this.sortingInfo = this.store.select(getSortingInfo);
-    this.store.dispatch(CountryActions.loadCountries());
-    this.store.dispatch(CountryActions.loadRegions());
   }
 
   setRange($event: number[]) {
