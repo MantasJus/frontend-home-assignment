@@ -56,7 +56,17 @@ export const getRegions = createSelector(
 export const getSortingInfo = createSelector(
     getCountryFeatureState,
     state => state.sorting
-)
+);
+
+export const getSearchQuery = createSelector(
+    getCountryFeatureState,
+    state => state.searchInput
+);
+
+export const getSelectedRegion = createSelector(
+    getCountryFeatureState,
+    state => state.filterRegion
+);
 
 export const countryReducer = createReducer<CountryState>(
     initialState,
@@ -103,6 +113,8 @@ export const countryReducer = createReducer<CountryState>(
             ...state,
             countries: state.countries,
             displayedCountries: filteredCountries,
+            searchInput: action.search,
+            filterRegion: action.region,
             error: ''
         };
     }),

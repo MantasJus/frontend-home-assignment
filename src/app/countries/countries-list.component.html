@@ -1,4 +1,10 @@
-<app-filter-bar (filterQuerys)="filterCountries($event)" [regions]="regions$ | async"></app-filter-bar>
+<app-filter-bar
+    (filterQuerys)="filterCountries($event)"
+    [regions]="regions$ | async"
+    [selectedRegion]="(regionSelect$ | async)!"
+    [searchQuery]="(searchQuery$ | async)!"
+    >
+</app-filter-bar>
 <div class="countries-list-container"
     *ngIf="countries$ | async as countries">
     <div class="countries-header">
@@ -6,28 +12,28 @@
         <div class="countries-header-sortable">
             COUNTRY NAME 
             <div class="sorting-arrow-up 
-                {{(sortingInfo | async)!.field=='Name'&&!(sortingInfo | async)!.ascending?'active-sort-arrow':''}}" 
+                {{(sortingInfo$ | async)!.field=='Name'&&!(sortingInfo$ | async)!.ascending?'active-sort-arrow':''}}" 
                 (click)="sortCountries('Name', false)"></div>
             <div class="sorting-arrow-down
-                {{(sortingInfo | async)!.field=='Name'&&(sortingInfo | async)!.ascending?'active-sort-arrow':''}}"
+                {{(sortingInfo$ | async)!.field=='Name'&&(sortingInfo$ | async)!.ascending?'active-sort-arrow':''}}"
                 (click)="sortCountries('Name', true)"></div>
         </div>
         <div class="countries-header-sortable">
             CAPITAL
             <div class="sorting-arrow-up
-            {{(sortingInfo | async)!.field=='Capital'&&!(sortingInfo | async)!.ascending?'active-sort-arrow':''}}"
+            {{(sortingInfo$ | async)!.field=='Capital'&&!(sortingInfo$ | async)!.ascending?'active-sort-arrow':''}}"
             (click)="sortCountries('Capital', false)"></div>
             <div class="sorting-arrow-down
-            {{(sortingInfo | async)!.field=='Capital'&&(sortingInfo | async)!.ascending?'active-sort-arrow':''}}"
+            {{(sortingInfo$ | async)!.field=='Capital'&&(sortingInfo$| async)!.ascending?'active-sort-arrow':''}}"
             (click)="sortCountries('Capital', true)"></div>
         </div>
         <div class="countries-header-sortable">
             REGION
             <div class="sorting-arrow-up
-            {{(sortingInfo | async)!.field=='Region'&&!(sortingInfo | async)!.ascending?'active-sort-arrow':''}}"
+            {{(sortingInfo$ | async)!.field=='Region'&&!(sortingInfo$ | async)!.ascending?'active-sort-arrow':''}}"
             (click)="sortCountries('Region', false)"></div>
             <div class="sorting-arrow-down
-            {{(sortingInfo | async)!.field=='Region'&&(sortingInfo | async)!.ascending?'active-sort-arrow':''}}"
+            {{(sortingInfo$ | async)!.field=='Region'&&(sortingInfo$ | async)!.ascending?'active-sort-arrow':''}}"
             (click)="sortCountries('Region', true)"></div>
         </div>
         <div>LANGUAGES</div>
@@ -36,10 +42,10 @@
         *ngFor="let country of countries | slice: lowerRange:higherRange"
         [routerLink]="['/countries', country.cca3]">
         <div><img class="flag-img" src={{country.flags.svg}}></div>
-        <div [innerHTML]="country.name.official| highlight:searchQuery"></div>
-        <div [innerHTML]="country.capital | arrayToString | highlight:searchQuery"></div>
+        <div [innerHTML]="country.name.official| highlight:(searchQuery$ | async)!"></div>
+        <div [innerHTML]="country.capital | arrayToString | highlight:(searchQuery$ | async)!"></div>
         <div [innerHTML]="country.region"></div>
-        <div [innerHTML]="country.languages | objectToString | highlight:searchQuery"></div>
+        <div [innerHTML]="country.languages | objectToString | highlight:(searchQuery$ | async)!"></div>
     </div>
     <app-paginator (range)="setRange($event)" [itemsLength]="countries.length"></app-paginator>
 </div>
