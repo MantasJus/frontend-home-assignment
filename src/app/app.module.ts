@@ -22,6 +22,7 @@ import { RouterModule } from '@angular/router';
 import { CountryDetailComponent } from './countries/country-detail.component';
 import { CountryDetailGuard } from './countries/country-detail.guard';
 import { ErrorPageComponent } from './error-page/error-page.component';
+import { CountryCurrencyDisplayPipe } from './pipes/country-currency-stringify.pipe';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { ErrorPageComponent } from './error-page/error-page.component';
     FilterBarComponent,
     DisplayObjectPipe,
     CountryDetailComponent,
-    ErrorPageComponent
+    ErrorPageComponent,
+    CountryCurrencyDisplayPipe
   ],
   imports: [
     HttpClientModule,

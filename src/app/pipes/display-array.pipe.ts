@@ -5,9 +5,10 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class DisplayArrayPipe implements PipeTransform {
 
-  transform(value: string[]): string {
+  transform(value: string[] | number[], seperator?: string): string {
     if(value == undefined || value.length <1) return '';
-    return value.reduce((sum, value) => sum + ', ' + value);
+    if(seperator==null) seperator = ', ';
+    return value.map(val => val.toString()).reduce((sum, value) => sum + seperator + value);
   }
 
 }

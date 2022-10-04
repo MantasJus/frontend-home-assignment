@@ -1,1 +1,31 @@
-<p>country-detail works!</p>
+<div *ngIf="(selectedCountry$ | async)!=undefined">
+    <div class="title-bar">
+        <h1>Country details: {{(selectedCountry$ | async)!.name.official + ' ' + (selectedCountry$ | async)!.flag}}</h1>
+    </div>
+    <div class="container">
+        <div class="left-inner-container">
+                <div>Common name: </div><div>{{(selectedCountry$ | async)!.name.common}}</div>
+                <div>Region: </div><div>{{(selectedCountry$ | async)!.region}}</div>
+                <div>Subregion: </div><div>{{(selectedCountry$ | async)!.subregion}}</div>
+                <div>{{(selectedCountry$ | async)!.capital.length>1?'Capitals':'Capital'}}: </div><div>{{(selectedCountry$ | async)!.capital | arrayToString}}</div>
+                <div>Demonym: </div><div>{{(selectedCountry$ | async)!.demonyms['eng'].m}}</div>
+                <div>Languages: </div><div>{{(selectedCountry$ | async)!.languages | objectToString}}</div>
+                <div>Currencies: </div><div>{{(selectedCountry$ | async)!.currencies | stringifyCountryCurrencies | arrayToString}}</div>
+                <div>Lat / Lng: </div><div>{{(selectedCountry$ | async)!.latlng | arrayToString: ' / '}}</div>
+                <div>Area: </div><div>{{(selectedCountry$ | async)!.area | number}} km²</div>
+                <div>Population: </div><div>{{(selectedCountry$ | async)!.population | number}}</div>
+                <div>Timezones: </div><div>{{(selectedCountry$ | async)!.timezones | arrayToString}}</div>
+        </div>
+        <div class="right-inner-container">
+            <figure class="coat-of-arms">
+                <img src="{{(selectedCountry$ | async)!.coatOfArms.svg}}"/>
+                <figcaption>coat of arms</figcaption>
+            </figure>
+            <div class="maps-container">
+                <b>Maps:</b>
+                <a href="{{(selectedCountry$ | async)!.maps.googleMaps}}" target="_blank">Google maps</a>
+                <a href="{{(selectedCountry$ | async)!.maps.openStreetMaps}}" target="_blank">Open street maps</a>
+            </div>
+        </div>
+    </div>
+</div>

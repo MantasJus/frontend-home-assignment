@@ -38,6 +38,11 @@ export const getCountries = createSelector(
     state => state.countries
 );
 
+export const getCountryByAbr = (abr: string) => createSelector(
+    getCountryFeatureState,
+    state => state.countries.find(x => x.cca3 === abr)
+);
+
 export const getError = createSelector(
     getCountryFeatureState,
     state => state.error
