@@ -1,0 +1,21 @@
+.container {
+    text-align: center;
+    padding-top: 10%;
+}
+
+.btn-back {
+    background: transparent;
+    padding: 8px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    letter-spacing: 2px;
+    transition: 0.2s ease;
+    font-weight: bold;
+    margin: 10px 0px;
+
+    &:hover {
+        background: rgba(0,0,0,0.1);
+        border-color: black;
+        transition: 0.2s ease;
+    }
+}
