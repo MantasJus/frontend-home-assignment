@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { select, Store } from '@ngrx/store';
+import { first, Observable, skip, take, takeWhile, tap } from 'rxjs';
 import { Country } from './country';
 import { getCountryByAbr, State } from './state/country.reducer';
+import * as CountryHistoryActions from './history/country-history.actions';
 
 @Component({
   templateUrl: './country-detail.component.html',
@@ -18,6 +19,16 @@ export class CountryDetailComponent implements OnInit {
   ngOnInit(): void {
     const CountId: string = this.route.snapshot.paramMap.get('abr')!;
     this.selectedCountry$ = this.store.select(getCountryByAbr(CountId));
+
+    this.selectedCountry$.pipe(takeWhile(val => val==undefined, true))
+      .subscribe(
+        (value) => {
+          if(value!=undefined)
+          {
+            this.store.dispatch(CountryHistoryActions.storeCountryToHistory({country: value}))
+          }
+        }
+      )
   }
 
 }

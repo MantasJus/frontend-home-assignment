@@ -79,4 +79,9 @@ export interface Country {
     capitalInfo: {
         latlng: number[];
     };
-}
+};
+
+export interface StoredCountryHist {
+    abreviation: string;
+    displayName: string;
+};

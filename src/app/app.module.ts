@@ -23,6 +23,17 @@ import { CountryDetailComponent } from './countries/country-detail.component';
 import { CountryDetailGuard } from './countries/country-detail.guard';
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { CountryCurrencyDisplayPipe } from './pipes/country-currency-stringify.pipe';
+import { HistoryEffects } from './countries/history/country-history.effects';
+import { historyReducer } from './countries/history/country-history.reducer';
+
+/*export const metaReducers: MetaReducer<any>[] = [
+  countriesHistoryMetaReducer
+];*/
+
+const rootReducer = {
+  countries: countryReducer,
+  countriesHist: historyReducer
+}
 
 @NgModule({
   declarations: [
@@ -41,13 +52,13 @@ import { CountryCurrencyDisplayPipe } from './pipes/country-currency-stringify.p
     HttpClientModule,
     BrowserModule,
     ReactiveFormsModule,
-    StoreModule.forRoot({'countries': countryReducer}),
+    StoreModule.forRoot(rootReducer/*, { metaReducers }*/),
     StoreDevtoolsModule.instrument({
       name: 'APM Demo App DevTools',
       maxAge: 25,
       logOnly: environment.production
     }),
-    EffectsModule.forRoot([CountryEffects]),
+    EffectsModule.forRoot([CountryEffects, HistoryEffects]),
     MatPaginatorModule,
     BrowserAnimationsModule,
     RouterModule.forRoot([
