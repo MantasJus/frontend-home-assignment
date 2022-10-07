@@ -1,4 +1,4 @@
-<div *ngIf="(selectedCountry$ | async)!=undefined">
+<div *ngIf="(selectedCountry$ | async) != undefined && (selectedCountry$ | async)!.name != undefined;">
     <div class="title-bar">
         <h1>Country details: {{(selectedCountry$ | async)!.name.official + ' ' + (selectedCountry$ | async)!.flag}}</h1>
     </div>
