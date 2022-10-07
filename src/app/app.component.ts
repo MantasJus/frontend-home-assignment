@@ -3,9 +3,7 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-root',
   template: `
-  <ul class="nav-bar">
-    <li><a routerLink="/countries">Countries list</a></li>
-  </ul>
+  <app-header></app-header>
   <div class="container">
     <router-outlet></router-outlet>
   </div>

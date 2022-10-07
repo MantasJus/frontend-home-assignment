@@ -25,6 +25,7 @@ import { ErrorPageComponent } from './error-page/error-page.component';
 import { CountryCurrencyDisplayPipe } from './pipes/country-currency-stringify.pipe';
 import { HistoryEffects } from './countries/history/country-history.effects';
 import { historyReducer } from './countries/history/country-history.reducer';
+import { HeaderComponent } from './header/header.component';
 
 /*export const metaReducers: MetaReducer<any>[] = [
   countriesHistoryMetaReducer
@@ -46,7 +47,8 @@ const rootReducer = {
     DisplayObjectPipe,
     CountryDetailComponent,
     ErrorPageComponent,
-    CountryCurrencyDisplayPipe
+    CountryCurrencyDisplayPipe,
+    HeaderComponent
   ],
   imports: [
     HttpClientModule,
