@@ -1,0 +1,13 @@
+<ul class="nav-bar">
+    <li><a routerLink="/countries">Countries list</a></li>
+    <li><button (click)="toggleDropdown()" (clickOutside)="closeDropdown()">Navigation history</button></li>
+</ul>
+<ul class="dropdownList" [ngClass]="{'dropdown-open': dropdownOpen}">
+    <li
+        *ngFor="let country of countryHistory$ | async"
+        (click)="closeDropdown()"
+        [routerLink]="['/countries', country.abreviation]"
+        >
+        >{{country.displayName}}
+    </li>
+</ul>
