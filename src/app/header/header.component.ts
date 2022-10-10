@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { StoredCountryHist } from '../countries/country';
+import { getHistory } from '../countries/history/country-history.reducer';
+import { State } from '../countries/state/country.reducer';
 
 @Component({
   selector: 'app-header',
@@ -7,9 +12,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  countryHistory$!: Observable<StoredCountryHist[]>;
+  dropdownOpen: boolean = false;
+
+  constructor(private store: Store<State>) { }
 
   ngOnInit(): void {
+    this.countryHistory$ = this.store.select(getHistory);
+  }
+
+  toggleDropdown() {
+    this.dropdownOpen = !this.dropdownOpen;
+  }
+
+  closeDropdown() {
+    this.dropdownOpen = false;
   }
 
 }
