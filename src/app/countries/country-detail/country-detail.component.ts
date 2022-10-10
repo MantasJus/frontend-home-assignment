@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable, takeWhile } from 'rxjs';
-import { Country } from './country';
-import { getCountryByAbr } from './state/country.reducer';
-import * as CountryHistoryActions from './history/country-history.actions';
-import { RootState } from '../state/app.reducer';
+import { Country } from '../country';
+import { getCountryByAbr } from '../state/country.reducer';
+import * as CountryHistoryActions from '../history/country-history.actions';
+import { RootState } from '../../state/app.reducer';
 
 @Component({
   templateUrl: './country-detail.component.html',
