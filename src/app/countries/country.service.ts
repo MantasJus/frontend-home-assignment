@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError, map, Observable, tap, throwError } from "rxjs";
 import { Country } from "./country";
 import { environment } from "src/environments/environment";
@@ -12,7 +12,7 @@ export class CountryService {
   constructor(private http: HttpClient) {}
 
   getCountries(): Observable<Country[]> {
-    return this.http.get<Country[]>(environment.API_PATH)
+    return this.http.get<Country[]>(environment.API_PATH+'/all')
       .pipe(
         map(data => {
           return data.map(value => {
@@ -25,8 +25,19 @@ export class CountryService {
       );
   }
 
+  getCountryByAbr(abr: string): Observable<Country> {
+    return this.http.get<Country[]>(environment.API_PATH+'/alpha/'+abr)
+      .pipe(
+        map(data => {
+          return data[0];
+        }),
+        //tap(data => console.log(JSON.stringify(data))),
+        catchError(this.handleError)
+      );
+  }
+
   getRegions(): Observable<string[]> {
-    return this.http.get<Country[]>(environment.API_PATH+'?fields=region')
+    return this.http.get<Country[]>(environment.API_PATH+'/all?fields=region')
       .pipe(
         map(data => {
           const regions: string[] = data.map(value => value.region);
@@ -37,8 +48,8 @@ export class CountryService {
       );
   }
 
-  private handleError(err: any) {
-    console.error(err);
+  private handleError(err: HttpErrorResponse) {
+    //console.error(err);
     let errorMessage: string;
     if (err.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.
@@ -46,7 +57,7 @@ export class CountryService {
     } else {
       // The backend returned an unsuccessful response code.
       // The response body may contain clues as to what went wrong,
-      errorMessage = `Backend returned code ${err.status}: ${err.body.error}`;
+      errorMessage = `Backend returned code ${err.status}: ${err.message}`;
     }
     return throwError(() => errorMessage);
   }

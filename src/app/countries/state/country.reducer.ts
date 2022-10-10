@@ -6,6 +6,8 @@ import { Country } from '../country';
 export interface CountryState {
     countries: Country[];
     displayedCountries: Country[];
+    selectedCountry: Country | undefined;
+    selectionExists: boolean | undefined;
     regions: string[];
     error: string;
     searchInput: string;
@@ -19,6 +21,8 @@ export interface CountryState {
 const initialState: CountryState = {
     countries: [],
     displayedCountries: [],
+    selectedCountry: undefined,
+    selectionExists: undefined,
     regions: [],
     error: '',
     searchInput: '',
@@ -34,9 +38,14 @@ export const getCountries = createSelector(
     state => state.countries
 );
 
-export const getCountryByAbr = (abr: string) => createSelector(
+export const getSelectedCountry = createSelector(
     getCountryFeatureState,
-    state => state.countries.find(x => x.cca3 === abr)
+    state => state.selectedCountry
+);
+
+export const getSelectionExists = createSelector(
+    getCountryFeatureState,
+    state => state.selectionExists
 );
 
 export const getError = createSelector(
@@ -98,6 +107,30 @@ export const countryReducer = createReducer<CountryState>(
         return {
             ...state,
             regions: [],
+            error: action.error
+        };
+    }),
+    on(CountryActions.loadCountryByAbr, (state, action): CountryState => {
+        return {
+            ...state,
+            selectedCountry: undefined,
+            selectionExists: undefined,
+            error: ''
+        };
+    }),
+    on(CountryActions.loadCountryByAbrSuccess, (state, action): CountryState => {
+        return {
+            ...state,
+            selectedCountry: action.country,
+            selectionExists: true,
+            error: ''
+        };
+    }),
+    on(CountryActions.loadCountryByAbrFailure, (state, action): CountryState => {
+        return {
+            ...state,
+            selectedCountry: undefined,
+            selectionExists: false,
             error: action.error
         };
     }),

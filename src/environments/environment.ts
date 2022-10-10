@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  API_PATH: 'https://restcountries.com/v3.1/all'
+  API_PATH: 'https://restcountries.com/v3.1'
 };
 
 /*

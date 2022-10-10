@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType, OnInitEffects } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
-import { catchError, map, mergeMap, of } from 'rxjs';
+import { catchError, map, mergeMap, of, switchMap } from 'rxjs';
 import { CountryService } from '../country.service';
 import * as CountryActions from './country.actions';
 
@@ -25,6 +25,7 @@ export class CountryEffects implements OnInitEffects {
         )
       );
   });
+
   loadRegions$ = createEffect(() => {
     return this.actions$
       .pipe(
@@ -34,6 +35,24 @@ export class CountryEffects implements OnInitEffects {
             map(regions => CountryActions.loadRegionsSuccess({ regions })),
             catchError(error => of(CountryActions.loadRegionsFailure({ error })))
           )
+        )
+      );
+  });
+
+  loadSelectedCountry$ = createEffect(() => {
+    return this.actions$
+      .pipe(
+        ofType(CountryActions.loadCountryByAbr),
+        switchMap((action) =>this.countryService.getCountryByAbr(action.abr)
+            .pipe(
+              map((country) => 
+                country!=undefined?
+                CountryActions.loadCountryByAbrSuccess({ country }) : 
+                CountryActions.loadCountryByAbrFailure({ error:'no such country' })
+                ),
+              catchError(error => of(CountryActions.loadCountryByAbrFailure({ error }))
+                ),
+            )
         )
       );
   });

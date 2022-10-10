@@ -42,3 +42,18 @@ export const loadRegionsFailure = createAction(
     '[Country] Load Regions Fail',
     props<{ error: string }>()
 );
+
+export const loadCountryByAbr = createAction(
+    '[Country] Load Country By Abr',
+    props<{ abr: string }>()
+);
+
+export const loadCountryByAbrSuccess = createAction(
+    '[Country] Load Country By Abr Success',
+    props<{ country: Country }>()
+);
+
+export const loadCountryByAbrFailure = createAction(
+    '[Country] Load Country By Abr Fail',
+    props<{ error: string }>()
+);
