@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Country } from './country';
-import { getCountriesToDisplay, getRegions, getSearchQuery, getSelectedRegion, getSortingInfo, State } from './state/country.reducer';
+import { getCountriesToDisplay, getRegions, getSearchQuery, getSelectedRegion, getSortingInfo, RootState } from './state/country.reducer';
 import * as CountryActions from './state/country.actions';
 import { Observable, take } from 'rxjs';
 
@@ -20,7 +20,7 @@ export class CountriesListComponent implements OnInit {
   lowerRange: number = 0;
   higherRange: number = 25;
   
-  constructor(private store: Store<State>) { }
+  constructor(private store: Store<RootState>) { }
 
   ngOnInit(): void {
     this.countries$ = this.store.select(getCountriesToDisplay);

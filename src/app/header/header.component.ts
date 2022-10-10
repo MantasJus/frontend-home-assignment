@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { StoredCountryHist } from '../countries/country';
 import { getHistory } from '../countries/history/country-history.reducer';
-import { State } from '../countries/state/country.reducer';
+import { RootState } from '../countries/state/country.reducer';
 
 @Component({
   selector: 'app-header',
@@ -15,7 +15,7 @@ export class HeaderComponent implements OnInit {
   countryHistory$!: Observable<StoredCountryHist[]>;
   dropdownOpen: boolean = false;
 
-  constructor(private store: Store<State>) { }
+  constructor(private store: Store<RootState>) { }
 
   ngOnInit(): void {
     this.countryHistory$ = this.store.select(getHistory);

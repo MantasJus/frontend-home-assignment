@@ -1,14 +1,12 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { State } from './state/country.reducer';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CountryDetailGuard implements CanActivate {
-  constructor(private router: Router, private store: Store<State>) { }
+  constructor(private router: Router) { }
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree 

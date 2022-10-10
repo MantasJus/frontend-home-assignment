@@ -4,7 +4,7 @@ import * as CountryActions from './country.actions';
 import { Country } from '../country';
 import { HistoryState } from '../history/country-history.reducer';
 
-export interface State {
+export interface RootState {
     countries: CountryState;
     countriesHist: HistoryState;
 }
