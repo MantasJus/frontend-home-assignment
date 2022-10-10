@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { select, Store } from '@ngrx/store';
+import { first, Observable, skip, take, takeWhile, tap } from 'rxjs';
 import { Country } from './country';
 import { getCountryByAbr, State } from './state/country.reducer';
 
@@ -13,7 +13,9 @@ export class CountryDetailComponent implements OnInit {
 
   selectedCountry$!: Observable<Country | undefined>;
 
-  constructor(private route: ActivatedRoute, private store: Store<State>) { }
+  constructor(private route: ActivatedRoute, private router: Router, private store: Store<State>) { 
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+  }
 
   ngOnInit(): void {
     const CountId: string = this.route.snapshot.paramMap.get('abr')!;
