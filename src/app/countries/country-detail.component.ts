@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { select, Store } from '@ngrx/store';
-import { first, Observable, skip, take, takeWhile, tap } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { Observable, takeWhile } from 'rxjs';
 import { Country } from './country';
-import { getCountryByAbr, State } from './state/country.reducer';
+import { getCountryByAbr } from './state/country.reducer';
 import * as CountryHistoryActions from './history/country-history.actions';
+import { RootState } from '../state/app.reducer';
 
 @Component({
   templateUrl: './country-detail.component.html',
@@ -14,7 +15,7 @@ export class CountryDetailComponent implements OnInit {
 
   selectedCountry$!: Observable<Country | undefined>;
 
-  constructor(private route: ActivatedRoute, private router: Router, private store: Store<State>) { 
+  constructor(private route: ActivatedRoute, private router: Router, private store: Store<RootState>) { 
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
   }
 

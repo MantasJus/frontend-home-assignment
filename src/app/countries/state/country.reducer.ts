@@ -2,12 +2,6 @@
 import { createReducer, on, createFeatureSelector, createSelector } from '@ngrx/store';
 import * as CountryActions from './country.actions';
 import { Country } from '../country';
-import { HistoryState } from '../history/country-history.reducer';
-
-export interface State {
-    countries: CountryState;
-    countriesHist: HistoryState;
-}
 
 export interface CountryState {
     countries: Country[];
