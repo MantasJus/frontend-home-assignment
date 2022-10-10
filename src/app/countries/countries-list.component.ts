@@ -1,9 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Country } from './country';
-import { getCountriesToDisplay, getRegions, getSearchQuery, getSelectedRegion, getSortingInfo, RootState } from './state/country.reducer';
+import { getCountriesToDisplay, getRegions, getSearchQuery, getSelectedRegion, getSortingInfo } from './state/country.reducer';
 import * as CountryActions from './state/country.actions';
 import { Observable, take } from 'rxjs';
+import { RootState } from '../state/app.reducer';
 
 @Component({
   templateUrl: './countries-list.component.html',

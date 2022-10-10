@@ -28,10 +28,6 @@ import { historyReducer } from './countries/history/country-history.reducer';
 import { HeaderComponent } from './header/header.component';
 import { ClickOutsideDirective } from './click-outside.directive';
 
-/*export const metaReducers: MetaReducer<any>[] = [
-  countriesHistoryMetaReducer
-];*/
-
 const rootReducer = {
   countries: countryReducer,
   countriesHist: historyReducer
@@ -56,7 +52,7 @@ const rootReducer = {
     HttpClientModule,
     BrowserModule,
     ReactiveFormsModule,
-    StoreModule.forRoot(rootReducer/*, { metaReducers }*/),
+    StoreModule.forRoot(rootReducer),
     StoreDevtoolsModule.instrument({
       name: 'APM Demo App DevTools',
       maxAge: 25,

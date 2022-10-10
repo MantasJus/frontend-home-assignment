@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { StoredCountryHist } from '../countries/country';
 import { getHistory } from '../countries/history/country-history.reducer';
-import { RootState } from '../countries/state/country.reducer';
+import { RootState } from '../state/app.reducer';
 
 @Component({
   selector: 'app-header',

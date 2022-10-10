@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { select, Store } from '@ngrx/store';
-import { first, Observable, skip, take, takeWhile, tap } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { Observable, takeWhile } from 'rxjs';
 import { Country } from './country';
-import { getCountryByAbr, RootState } from './state/country.reducer';
+import { getCountryByAbr } from './state/country.reducer';
 import * as CountryHistoryActions from './history/country-history.actions';
+import { RootState } from '../state/app.reducer';
 
 @Component({
   templateUrl: './country-detail.component.html',
