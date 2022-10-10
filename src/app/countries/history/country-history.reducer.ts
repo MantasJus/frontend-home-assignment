@@ -13,7 +13,7 @@ const initialState: HistoryState = {
 };
 
 // Selector functions
-const getCountryFeatureState = createFeatureSelector<HistoryState>('countries');
+const getCountryFeatureState = createFeatureSelector<HistoryState>('countriesHist');
 
 export const getHistory = createSelector(
     getCountryFeatureState,
